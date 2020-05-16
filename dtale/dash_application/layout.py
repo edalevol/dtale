@@ -9,7 +9,7 @@ from pkg_resources import parse_version
 from dtale.charts.utils import YAXIS_CHARTS, ZAXIS_CHARTS, find_group_vals
 from dtale.utils import (ChartBuildingError, classify_type, dict_merge,
                          flatten_lists, get_dtypes, inner_build_query,
-                         make_list)
+                         is_app_root_defined, make_list)
 
 
 def test_plotly_version(version_num):
@@ -37,7 +37,7 @@ def base_layout(github_fork, app_root, **kwargs):
                 <a href="https://github.com/man-group/dtale">Fork me on GitHub</a>
             </span>
         '''
-    if app_root is not None:
+    if is_app_root_defined(app_root):
         webroot_html = '''
         <script type="text/javascript">
             window.resourceBaseUrl = '{app_root}';

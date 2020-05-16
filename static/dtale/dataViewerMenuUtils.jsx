@@ -1,5 +1,7 @@
 import _ from "lodash";
 
+import { cleanupEndpoint } from "../actions/url-utils";
+
 function updateSort(selectedCols, dir, { sortInfo, propagateState }) {
   let updatedSortInfo = _.filter(sortInfo, ([col, _dir]) => !_.includes(selectedCols, col));
   switch (dir) {
@@ -35,7 +37,7 @@ function buildStyling(val, colType, styleProps) {
 function fullPath(path, dataId = null) {
   const finalPath = dataId ? `${path}/${dataId}` : path;
   if (window.resourceBaseUrl) {
-    return _.replace(`${window.resourceBaseUrl}/${finalPath}`, "//", "/");
+    return cleanupEndpoint(`${window.resourceBaseUrl}/${finalPath}`);
   }
   return finalPath;
 }

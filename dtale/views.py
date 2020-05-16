@@ -7,7 +7,8 @@ import webbrowser
 from builtins import map, range, str, zip
 from logging import getLogger
 
-from flask import (current_app, json, make_response, redirect, render_template, request)
+from flask import (current_app, json, make_response, redirect, render_template,
+                   request)
 
 import numpy as np
 import pandas as pd

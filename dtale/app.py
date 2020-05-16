@@ -23,7 +23,8 @@ import dtale.global_state as global_state
 from dtale import dtale
 from dtale.cli.clickutils import retrieve_meta_info_and_version, setup_logging
 from dtale.utils import (DuplicateDataError, build_shutdown_url, build_url,
-                         dict_merge, get_host, running_with_flask_debug)
+                         dict_merge, get_host, is_app_root_defined,
+                         running_with_flask_debug)
 from dtale.views import DtaleData, head_data_id, is_up, kill, startup
 
 if PY3:
@@ -205,6 +206,7 @@ def build_app(url, host=None, reaper_on=True, hide_shutdown=False, github_fork=F
     if app_root is not None:
         app.config['APPLICATION_ROOT'] = app_root
         app.jinja_env.globals['url_for'] = app.url_for
+    app.jinja_env.globals['is_app_root_defined'] = is_app_root_defined
 
     app.register_blueprint(dtale)
 
