@@ -8,6 +8,10 @@ function logException(e, callStack) {
 
 // Useful for libraries that want a Promise.
 function fetchJsonPromise(url) {
+  const webRoot = window.resourceBaseUrl;
+  if (webRoot) {
+    url = `${webRoot}/${url}`;
+  }
   return popsicle.fetch(url).then(response => response.json());
 }
 

@@ -10,7 +10,6 @@ import { Bouncer } from "../Bouncer";
 import { RemovableError } from "../RemovableError";
 import { exports as gu } from "../dtale/gridUtils";
 import { fetchJson } from "../fetcher";
-import { buildURLString } from "../actions/url-utils";
 
 require("./Instances.css");
 
@@ -38,7 +37,7 @@ class Instances extends React.Component {
 
   componentDidMount() {
     this.setState({ loadingProcesses: true });
-    fetchJson(buildURLString("/dtale/processes"), processes =>
+    fetchJson("/dtale/processes", processes =>
       this.setState({ processes, loadingProcesses: false }, () =>
         $("input#processes").val(_.get(processes, "data.length", 1))
       )
@@ -46,7 +45,7 @@ class Instances extends React.Component {
   }
 
   cleanup(instance) {
-    fetchJson(buildURLString(`/dtale/cleanup/${instance.data_id}`), data => {
+    fetchJson(`/dtale/cleanup/${instance.data_id}`, data => {
       if (data.success) {
         const currProcesses = _.get(this.state, "processes.data") || [];
         const processes = _.map(_.reject(currProcesses, { data_id: instance.data_id }), p => _.assignIn({}, p));
@@ -155,7 +154,7 @@ class Instances extends React.Component {
       }
       const currentHost = window.location.origin;
       const newLoc = `${currentHost}${this.props.iframe ? "/dtale/iframe/" : "/dtale/main/"}${rowData.data_id}`;
-      if (_.includes(window.location.pathname, "/dtale/popup/instances")) {
+      if (_.startsWith(window.location.pathname, "/dtale/popup/instances")) {
         window.opener.location.assign(newLoc);
         window.close();
         return;

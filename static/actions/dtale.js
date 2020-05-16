@@ -24,7 +24,7 @@ function closeColumnMenu() {
 }
 
 function isPopup() {
-  return _.includes(window.location.pathname, "/dtale/popup");
+  return _.startsWith(window.location.pathname, "/dtale/popup");
 }
 
 function isJSON(str) {

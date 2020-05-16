@@ -274,14 +274,14 @@ def chart_wrapper(data_id, data, url_params=None):
         querystring = chart_url_querystring(url_params, data=data, group_filter=group_filter)
         popup_link = html.A(
             [html.I(className='far fa-window-restore mr-4'), html.Span('Popup Chart')],
-            href='/charts/{}?{}'.format(data_id, querystring),
+            href='{}/charts/{}?{}'.format(url_params.get('app_root') or '', data_id, querystring),
             target='_blank',
             className='mr-5'
         )
         copy_link = html.Div(
             [html.A(
                 [html.I(className='ico-link mr-4'), html.Span('Copy Link')],
-                href='/charts/{}?{}'.format(data_id, querystring),
+                href='{}/charts/{}?{}'.format(url_params.get('app_root') or '', data_id, querystring),
                 target='_blank',
                 className='mr-5 copy-link-btn'
             ), html.Div('Copied to clipboard', className="hoverable__content copy-tt-bottom")
@@ -295,12 +295,12 @@ def chart_wrapper(data_id, data, url_params=None):
         )
         export_html_link = html.A(
             [html.I(className='fas fa-file-code mr-4'), html.Span('Export Chart')],
-            href='/dtale/chart-export/{}?{}'.format(data_id, querystring),
+            href='{}/dtale/chart-export/{}?{}'.format(url_params.get('app_root') or '', data_id, querystring),
             className='export-chart-btn mr-5'
         )
         export_csv_link = html.A(
             [html.I(className='fas fa-file-csv mr-4'), html.Span('Export CSV')],
-            href='/dtale/chart-csv-export/{}?{}'.format(data_id, querystring),
+            href='{}/dtale/chart-csv-export/{}?{}'.format(url_params.get('app_root') or '', data_id, querystring),
             className='export-chart-btn'
         )
         links = html.Div(

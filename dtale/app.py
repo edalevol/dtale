@@ -504,7 +504,9 @@ def show(data=None, host=None, port=None, name=None, debug=False, subprocess=Tru
 
             final_app_root = app_root
             if final_app_root is not None:
-                final_app_root = '{}/{}'.format(final_app_root, ACTIVE_PORT)
+                final_app_root = ('{}{}' if final_app_root.endswith('/') else '{}/{}').format(
+                    final_app_root, ACTIVE_PORT
+                )
 
             def _start():
                 app = build_app(url, reaper_on=reaper_on, host=ACTIVE_HOST, app_root=final_app_root)
